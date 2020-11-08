@@ -1,15 +1,26 @@
 package com.read.readbibleservice.controller;
 
+import com.read.readbibleservice.config.jwt.JwtTokenUtil;
+import com.read.readbibleservice.model.ApiResponse;
+import com.read.readbibleservice.model.AuthToken;
+import com.read.readbibleservice.model.Login;
+import com.read.readbibleservice.model.User;
 import com.read.readbibleservice.service.AuthService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/auth")
 public class AuthController {
+
+  @Autowired
+  private AuthenticationManager authenticationManager;
+
+  @Autowired
+  private JwtTokenUtil jwtTokenUtil;
 
   private AuthService authService;
 
@@ -17,9 +28,11 @@ public class AuthController {
     this.authService = authService;
   }
 
-  @GetMapping(value = "/{username}/{password}")
-  public Mono<Boolean> checkUsernamePassword(@PathVariable String username, @PathVariable String password) {
-    return authService.checkUsernamePassword(username, password);
+  @RequestMapping(value = "/token", method = RequestMethod.POST)
+  public ApiResponse<AuthToken> generateJwtToken(@RequestBody Login login) {
+    this.authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(login.getUsername(), login.getPassword()));
+    final String token = jwtTokenUtil.generateToken(login);
+    return new ApiResponse<>(200, "data success", new AuthToken(token, login.getUsername()));
   }
 
 }
