@@ -12,6 +12,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
@@ -29,10 +30,9 @@ public class AuthController {
   }
 
   @RequestMapping(value = "/token", method = RequestMethod.POST)
-  public ApiResponse<AuthToken> generateJwtToken(@RequestBody Login login) {
+  public String generateJwtToken(@RequestBody Login login) {
     this.authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(login.getUsername(), login.getPassword()));
-    final String token = jwtTokenUtil.generateToken(login);
-    return new ApiResponse<>(200, "data success", new AuthToken(token, login.getUsername()));
+    return jwtTokenUtil.generateToken(login);
   }
 
 }

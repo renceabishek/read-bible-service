@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
 
 @RestController
-@RequestMapping("/profile/api")
+@RequestMapping("/api/profile")
 public class ProfileController {
 
     private final ProfileService profileService;
