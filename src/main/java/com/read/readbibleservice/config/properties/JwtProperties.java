@@ -13,4 +13,5 @@ public class JwtProperties {
 
     private String signingKey;
     private String accessTokenValiditySeconds;
+    private String origins;
 }
