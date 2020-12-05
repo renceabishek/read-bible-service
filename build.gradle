@@ -20,6 +20,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude module: 'junit'
 	}
@@ -40,7 +41,6 @@ dependencies {
 	implementation 'com.squareup.okhttp3:okhttp:3.6.0'
 	testCompile group: 'io.projectreactor', name: 'reactor-test', version: '3.4.0'
 	compile group: 'org.springframework', name: 'spring-context-support', version: '3.2.0.RELEASE'
-	compile group: 'javax.mail', name: 'mail', version: '1.4.1'
 
 
 }
