@@ -1,5 +1,6 @@
 package com.read.readbibleservice.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -7,10 +8,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class EmailUtilityService {
 
-    private final JavaMailSender javaMailSender;
+    @Autowired
+    private JavaMailSender javaMailSender;
 
-    public EmailUtilityService(JavaMailSender javaMailSender) {
-        this.javaMailSender = javaMailSender;
+    public EmailUtilityService() {
     }
 
     public void sendEmail(SimpleMailMessage email) {
