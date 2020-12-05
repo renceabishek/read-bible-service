@@ -6,4 +6,5 @@ import reactor.core.publisher.Mono;
 public interface ProfileService {
 
     Mono<Profile> getProfileDetail(String name);
+
 }

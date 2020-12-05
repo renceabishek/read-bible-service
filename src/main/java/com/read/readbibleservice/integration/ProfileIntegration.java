@@ -7,4 +7,5 @@ import java.util.HashMap;
 
 public interface ProfileIntegration {
     Mono<HashMap<String, Profile>> getProfileDetail(String name);
+
 }

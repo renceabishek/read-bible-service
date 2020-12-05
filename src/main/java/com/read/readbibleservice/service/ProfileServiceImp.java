@@ -21,8 +21,11 @@ public class ProfileServiceImp implements ProfileService {
 
     @Override
     public Mono<Profile> getProfileDetail(String name) {
-        return profileIntegration.getProfileDetail(name).map(f -> f.values().stream().map(profile -> {
-            return objectMapper.convertValue(profile, Profile.class);
-        }).findAny().orElse(null));
+        return profileIntegration.getProfileDetail(name).map(f -> f.values().stream()
+                .map(profile -> objectMapper.convertValue(profile, Profile.class))
+                .findAny()
+                .orElse(null));
     }
+
+
 }

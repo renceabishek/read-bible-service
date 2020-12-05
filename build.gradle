@@ -17,20 +17,38 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
-		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+		exclude module: 'junit'
 	}
 
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation "org.junit.jupiter:junit-jupiter-api"
+	testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine"
+	testImplementation "org.springframework.security:spring-security-test"
 	compile 'org.springframework.boot:spring-boot-starter-webflux'
 	compile group: 'com.google.firebase', name: 'firebase-admin', version: '6.10.0'
 	compileOnly 'org.projectlombok:lombok:1.18.12'
 	compile group: 'org.json', name: 'json', version: '20160810'
 
 	compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.0'
+	testImplementation 'com.squareup.okhttp3:mockwebserver:3.6.0'
+
+
+	implementation 'com.squareup.okhttp3:okhttp:3.6.0'
+	testCompile group: 'io.projectreactor', name: 'reactor-test', version: '3.4.0'
+	compile group: 'org.springframework', name: 'spring-context-support', version: '3.2.0.RELEASE'
+	compile group: 'javax.mail', name: 'mail', version: '1.4.1'
+
+
 }
 
 test {
 	useJUnitPlatform()
+}
+
+test {
+	failFast = true
 }

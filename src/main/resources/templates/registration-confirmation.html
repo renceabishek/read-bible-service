@@ -1,0 +1,51 @@
+<html xmlns:th="https://thymeleaf.org">
+<head>
+<style>
+
+body {
+    height: 100%;
+    background-color: #fafafa
+    margin: 0 !important;
+    font-family: cursive, "Helvetica Neue", sans-serif;
+    font: inherit;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #0b333f;
+  height: 62px;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 31px;
+}
+
+li a:hover {
+  background-color: #111;
+}
+</style>
+</head>
+<body style="margin: 0">
+<ul>
+    <li><a class="active">Read Bible</a></li>
+</ul>
+<div style="margin-left: 9px;">
+
+    <h3 th:if="${username!=null}" th:text=" 'Hello ' +${username}" style="color: steelblue;" ></h3>
+    <h4 th:text="${message}"></h4>
+    <a  th:href="${link}">login</a>
+</div>
+</body>
+</html>
