@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.read.readbibleservice.config.properties.FirebaseDbProperties;
 import com.read.readbibleservice.integration.ProfileIntegration;
 import com.read.readbibleservice.model.Profile;
+import com.read.readbibleservice.service.EmailUtilityService;
 import com.read.readbibleservice.service.ProfileService;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;

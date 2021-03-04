@@ -2,6 +2,7 @@ package com.read.readbibleservice.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.read.readbibleservice.config.properties.UrlProperties;
+import com.read.readbibleservice.config.security.ApplicationRole;
 import com.read.readbibleservice.exception.ErrorCode;
 import com.read.readbibleservice.exception.UserCustomException;
 import com.read.readbibleservice.integration.AuthIntegration;
@@ -20,10 +21,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.time.LocalDateTime;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
+
+import static com.read.readbibleservice.config.security.ApplicationRole.ADMIN;
+import static com.read.readbibleservice.config.security.ApplicationRole.USER;
 
 @Service
 public class AuthServiceImp implements UserDetailsService, AuthService {
@@ -66,8 +67,12 @@ public class AuthServiceImp implements UserDetailsService, AuthService {
         }
     }
 
-    private List<SimpleGrantedAuthority> getAuthority(String role) {
-        return Collections.singletonList(new SimpleGrantedAuthority(role));
+    private Set<SimpleGrantedAuthority> getAuthority(String role) {
+        if(role.contains("ADMIN")) {
+            return ADMIN.getAuthorities();
+        } else {
+            return USER.getAuthorities();
+        }
     }
 
     @Override
