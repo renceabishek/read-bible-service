@@ -18,11 +18,6 @@ public class AdminDataController {
     }
 
     @GetMapping
-    public String get() {
-        return "Success read!";
-    }
-
-    @GetMapping
     public Mono<List<BibleData>> getAlltheBibleData() {
         return dataService.fetchAllBibleData();
     }
