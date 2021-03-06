@@ -10,4 +10,5 @@ import org.springframework.context.annotation.Configuration;
 public class FirebaseJsonProperties {
 
   private String login;
+  private String bibledata;
 }

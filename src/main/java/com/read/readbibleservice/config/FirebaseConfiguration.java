@@ -3,11 +3,14 @@ package com.read.readbibleservice.config;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.read.readbibleservice.config.properties.FirebaseDbProperties;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -43,6 +46,18 @@ public class FirebaseConfiguration {
         .build();
 
     return FirebaseApp.initializeApp(options);
+  }
+
+
+  @Bean
+  @Qualifier("fbPersist")
+  public DatabaseReference provideDatabaseReference(FirebaseApp firebaseApp) {
+    FirebaseDatabase
+            .getInstance(firebaseApp)
+            .setPersistenceEnabled(false);
+    return FirebaseDatabase
+            .getInstance(firebaseApp)
+            .getReference();
   }
 
 
