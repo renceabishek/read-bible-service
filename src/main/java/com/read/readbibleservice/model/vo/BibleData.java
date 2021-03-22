@@ -1,8 +1,6 @@
-package com.read.readbibleservice.model;
+package com.read.readbibleservice.model.vo;
 
 import lombok.*;
-
-import java.time.LocalDate;
 
 @Data
 @Getter
@@ -13,7 +11,8 @@ import java.time.LocalDate;
 public class BibleData {
 
     private String uniqueId;
-    private LocalDate date;
+    private String name;
+    private String date;
     private String book;
     private int chapter;
     private int fromVerse;

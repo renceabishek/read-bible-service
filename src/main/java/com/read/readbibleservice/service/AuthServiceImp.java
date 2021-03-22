@@ -84,6 +84,7 @@ public class AuthServiceImp implements UserDetailsService, AuthService {
             user.setConfirmationDateTime(LocalDateTime.now());
             user.setUsername(user.getEmail().split("@")[0]);
             user.setRole("ROLE_USER");
+            user.setLinked(false);
             authIntegration.saveUser(user);
 
             sendMail(user.getEmail(), user.getConfirmationToken());

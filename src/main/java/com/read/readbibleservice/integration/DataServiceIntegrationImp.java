@@ -2,7 +2,8 @@ package com.read.readbibleservice.integration;
 
 import com.google.firebase.database.DatabaseReference;
 import com.read.readbibleservice.config.properties.FirebaseJsonProperties;
-import com.read.readbibleservice.model.BibleData;
+import com.read.readbibleservice.model.dao.BibleDataDao;
+import com.read.readbibleservice.model.vo.BibleData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.ParameterizedTypeReference;
@@ -43,7 +44,7 @@ public class DataServiceIntegrationImp implements DataServiceIntegration {
     }
 
     @Override
-    public String createBibleData(BibleData bibleData) {
+    public String createBibleData(BibleDataDao bibleData) {
         DatabaseReference postsRef = mainDatabaseReference.child(firebaseJsonProperties.getBibledata());
         DatabaseReference newPostRef = postsRef.push();
         newPostRef.setValueAsync(bibleData);

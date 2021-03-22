@@ -9,7 +9,8 @@ import org.springframework.http.HttpStatus;
 public enum ErrorCode {
     USER_NOT_CONFIRMED_BY_EMAIL(4100, HttpStatus.BAD_REQUEST),
     USER_ALREADY_REGISTERED(4101, HttpStatus.BAD_REQUEST),
-    USER_NAME_NOT_FOUND(4102, HttpStatus.BAD_REQUEST);
+    USER_NAME_NOT_FOUND(4102, HttpStatus.BAD_REQUEST),
+    TOKEN_EXPIRED(4103, HttpStatus.BAD_REQUEST);
 
     int httpCode;
     HttpStatus httpStatus;

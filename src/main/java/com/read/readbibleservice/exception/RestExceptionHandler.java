@@ -1,5 +1,6 @@
 package com.read.readbibleservice.exception;
 
+import com.google.firebase.database.DatabaseException;
 import com.google.protobuf.Api;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +15,7 @@ import java.time.OffsetDateTime;
 @RestControllerAdvice
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(UserCustomException.class)
+    @ExceptionHandler({UserCustomException.class, DatabaseException.class})
     public ResponseEntity<Object> handleResourceNotFound(UserCustomException exception, WebRequest request) {
         return buildResponseEntity(exception.getMessage(), exception, exception.getErrorCode().getHttpStatus(),
                 exception.getErrorCode().getHttpCode(), (ServletWebRequest)request);

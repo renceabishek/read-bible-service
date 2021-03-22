@@ -1,6 +1,6 @@
 package com.read.readbibleservice.service;
 
-import com.read.readbibleservice.model.BibleData;
+import com.read.readbibleservice.model.vo.BibleData;
 import reactor.core.publisher.Mono;
 
 import java.util.List;

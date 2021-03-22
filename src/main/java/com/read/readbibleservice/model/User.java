@@ -18,4 +18,6 @@ public class User {
     private boolean isEnabled;
     private String confirmationToken;
     private LocalDateTime confirmationDateTime;
+    private String picUrl;
+    private boolean isLinked;
 }

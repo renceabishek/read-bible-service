@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.Serializable;
 
+import static com.read.readbibleservice.exception.ErrorCode.TOKEN_EXPIRED;
+
 @Component
 public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint, Serializable {
 
@@ -16,7 +18,11 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint, Se
     public void commence(HttpServletRequest request,
                          HttpServletResponse response,
                          AuthenticationException authException) throws IOException {
-
-        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
+        String expired = (String) request.getAttribute("expired");
+        if (expired != null) {
+            response.sendError(TOKEN_EXPIRED.getHttpCode(), expired);
+        } else {
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid Login details");
+        }
     }
 }

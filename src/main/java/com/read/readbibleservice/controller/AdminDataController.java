@@ -1,6 +1,6 @@
 package com.read.readbibleservice.controller;
 
-import com.read.readbibleservice.model.BibleData;
+import com.read.readbibleservice.model.vo.BibleData;
 import com.read.readbibleservice.service.DataService;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
@@ -27,7 +27,7 @@ public class AdminDataController {
         return dataService.createBibleData(bibleData);
     }
 
-    @PutMapping("{uniqueId}")
+    @PutMapping("/{uniqueId}")
     public void updateBibleData(@RequestBody BibleData bibleData, @PathVariable("uniqueId") String uniqueId) {
         dataService.updateBibleData(bibleData, uniqueId);
     }

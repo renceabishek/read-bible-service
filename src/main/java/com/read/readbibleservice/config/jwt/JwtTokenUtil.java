@@ -2,17 +2,16 @@ package com.read.readbibleservice.config.jwt;
 
 import com.read.readbibleservice.config.properties.JwtProperties;
 import com.read.readbibleservice.model.Login;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
-import java.util.Arrays;
+import java.time.Instant;
 import java.util.Collections;
 import java.util.Date;
+import java.util.Map;
 import java.util.function.Function;
 
 import static com.read.readbibleservice.model.constants.Constants.ISSUER;
@@ -51,20 +50,30 @@ public class JwtTokenUtil implements Serializable {
         return expiration.before(new Date());
     }
 
-    public String generateToken(Login user) {
-        return doGenerateToken(user.getUsername());
+    public String generateToken(UserDetails userDetails) {
+        return doGenerateToken(userDetails);
     }
 
-    private String doGenerateToken(String subject) {
+    private String doGenerateToken(UserDetails userDetails) {
 
-        Claims claims = Jwts.claims().setSubject(subject);
-        claims.put("scopes", Collections.singletonList(new SimpleGrantedAuthority("ROLE_ADMIN")));
+        Claims claims = Jwts.claims().setSubject(userDetails.getUsername());
+        claims.put("scopes", userDetails.getAuthorities());
 
         return Jwts.builder()
                 .setClaims(claims)
                 .setIssuer(ISSUER)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 5*60*60 *1000))
+                .setExpiration(Date.from(Instant.now().plusSeconds(60*15)))
+                .signWith(SignatureAlgorithm.HS256, jwtProperties.getSigningKey())
+                .compact();
+    }
+
+    public String doGenerateRefreshToken(Map<String, Object> claims, String subject) {
+        return Jwts.builder()
+                .setClaims(claims)
+                .setSubject(subject)
+                .setIssuedAt(new Date(System.currentTimeMillis()))
+                .setExpiration(Date.from(Instant.now().plusSeconds(60*15)))
                 .signWith(SignatureAlgorithm.HS256, jwtProperties.getSigningKey())
                 .compact();
     }
